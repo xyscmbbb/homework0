@@ -1,0 +1,62 @@
+---
+title: "hw0"
+format:
+    html: 
+       embed-resources: true
+editor: visual
+execute:
+  echo: false
+---
+
+## Part 1
+
+-   Write a Quarto document that defines variables $a=1, b=3, c=2$ and print out the solutions to $f(x) = ax^2+bx+c=0$.
+
+```{r}
+# Define the coefficients
+a <- 1
+b <- 3
+c <- 2
+
+# Calculate the discriminant
+D <- b^2 - 4*a*c
+
+# Check if the roots are real
+if (D >= 0) {
+  root1 <- (-b + sqrt(D)) / (2*a)
+  root2 <- (-b - sqrt(D)) / (2*a)
+  if (D == 0){
+    cat("There is only one real root:",root1,"\n")
+  }else{
+    cat("The real roots are:", root1, "and", root2, "\n")
+  }
+} else {
+  cat("There are no real roots.\n")
+}
+```
+
+Since $ax^2+bx+c=0$ is a quadratic equation with one unknown variable, we can first calculate the discriminant $D$ which is given by the formula $D=b^2-4ac$ . The roots are then calculated using $\frac{{-b \pm \sqrt{D}}}{2a}$. If $D$ is less than 0, real roots do not exist. If $D$ is equal to 0, there is one real root. If $D$ is larger than 0, there are two distinct real roots.
+
+## Part 2
+
+-   Include a graph of $f(x)$ versus $x$ for $x \in (-5,5)$ to verify the solutions.
+
+```{r}
+# define xlim
+x <- seq((root2-1), (root1+1), by=0.05)
+
+# define f(x)
+y <- a*x^2 + b*x + c
+
+# draw a scatter plot
+plot(x, y, type='p', pch = ".",cex = 3)
+
+# Add horizontal line at y=0
+abline(h=0, col="red")
+
+# Add vertical lines at x = root1 and x = root2
+abline(v = root1, col = "blue", lty=2) 
+abline(v = root2, col = "green", lty=2)
+```
+
+I am plotting $f(x)=ax^2+bx+c$ over a range of $x$ values that extend a little beyond its real roots. Additionally, I include a red horizontal line at $y=0$ to easily identify where the function crosses the x-axis, which are the roots of the equation $f(x)=0$. I also add vertical dashed lines at the x-coordinates corresponding to the two roots, color-coded in blue and green, to visually indicate the solutions to $f(x)$. Since the intersections of the vertical lines and the horizontal line lie on the function curve, the solutions are correct.
